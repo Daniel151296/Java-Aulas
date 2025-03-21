@@ -8,43 +8,51 @@
     <link th:href="@{/css/style.css}" rel="stylesheet" />
 </head>
 <body>
-    <div th:replace="~{fragments/header :: header}"></div>
-    <div>
-        <form method="post" th:action="@{/livro/editar/{id}(id=${idLivro})}" th:object="${livro}">
-            <h2>Edição de Livro</h2>
-            <input type="hidden" th:field="${idLivro}">
-            <br>
-            <table>
-                <tr>
-                    <td>Título:</td>
-                    <td><input type="text" th:field="*{titulo}"></td>
-                </tr>
-                <tr>
-                    <td>Autor:</td>
-                    <td><input type="text" th:field="*{autor}"></td>
-                </tr>
-                <tr>
-                    <td>Categoria:</td>
-                    <td>
-                        <select name="categoria" th:field="*{categoria}">
-                            <option name="ROMANCE" value="ROMANCE">Romance</option>
-                            <option name="FICCAO" value="FICCAO">Ficção</option>
-                            <option name="FANTASIA" value="FANTASIA">Fantasia</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Preço:</td>
-                    <td><input type="text" th:field="*{preco}"></td>
-                </tr>
-                <tr>
-                    <td>ISBN:</td>
-                    <td><input type="text" th:field="*{isbn}"></td>
-                </tr>
-                <tr><td colspan="2"><input type="submit" value="Atualizar"></td></tr>
-            </table>
-        </form>
-    </div>
-    <div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/header :: header}"></div>
+<div th:class="main_content">
+    <form method="post" th:action="@{/livro/editar/{id}(id=${idLivro})}" th:object="${livro}">
+        <h2><span th:text="${#messages.msg('edicao.titulo')}"></span></h2>
+        <input type="hidden" th:field="*{idLivro}">
+
+        <div class="form-group">
+            <label for="titulo"><span th:text="${#messages.msg('livro.attr.titulo')}"></span>:</label>
+            <input type="text" id="titulo" th:field="*{titulo}" class="form-control">
+            <p th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}" th:errorclass="error"></p>
+        </div>
+
+        <div class="form-group">
+            <label for="autor"><span th:text="${#messages.msg('livro.attr.autor')}"></span>:</label>
+            <input type="text" id="autor" th:field="*{autor}" class="form-control">
+            <p th:if="${#fields.hasErrors('autor')}" th:errors="*{autor}" th:errorclass="error"></p>
+        </div>
+
+        <div class="form-group">
+            <label for="categoria"><span th:text="${#messages.msg('livro.attr.categoria')}"></span>:</label>
+            <select id="categoria" th:field="*{categoria}" class="form-control">
+                <option value="ROMANCE"><span th:text="${#messages.msg('livro.attr.categoria.ROMANCE')}"></span></option>
+                <option value="FICCAO"><span th:text="${#messages.msg('livro.attr.categoria.FICCAO')}"></span></option>
+                <option value="FANTASIA"><span th:text="${#messages.msg('livro.attr.categoria.FANTASIA')}"></span></option>
+            </select>
+            <p th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}" th:errorclass="error"></p>
+        </div>
+
+        <div class="form-group">
+            <label for="preco"><span th:text="${#messages.msg('livro.attr.preco')}"></span>:</label>
+            <input type="text" id="preco" th:field="*{preco}" class="form-control">
+            <p th:if="${#fields.hasErrors('preco')}" th:errors="*{preco}" th:errorclass="error"></p>
+        </div>
+
+        <div class="form-group">
+            <label for="isbn"><span th:text="${#messages.msg('livro.attr.isbn')}"></span>:</label>
+            <input type="text" id="isbn" th:field="*{isbn}" class="form-control">
+            <p th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}" th:errorclass="error"></p>
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-primary"><span th:text="${#messages.msg('edicao.atualizar')}"></span></button>
+        </div>
+    </form>
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>
